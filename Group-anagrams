@@ -1,0 +1,27 @@
+import java.util.HashMap;
+import java.util.Arrays;
+
+class Solution {
+    //Solução encontrada usando hashmap teste
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> hash = new HashMap<>();
+        List<List<String>> result = new ArrayList<>();
+
+        for(int i = 0; i < strs.length; i++) {
+            char[] chars = strs[i].toCharArray();
+            Arrays.sort(chars);
+            String sortedKey = new String(chars);
+        
+            if(hash.containsKey(sortedKey)) {
+                hash.get(sortedKey).add(strs[i]);
+            } else {
+                List<String> newGroup = new ArrayList<>();
+                newGroup.add(strs[i]);
+                hash.put(sortedKey, newGroup);
+            }
+        }
+
+        result.addAll(hash.values());
+        return result;
+    }
+}
