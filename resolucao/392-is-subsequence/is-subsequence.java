@@ -1,34 +1,24 @@
 class Solution {
     public boolean isSubsequence(String s, String t) {
 
-        char[] sub = s.toCharArray();
-        int count = 0;
-        char[] sequence = t.toCharArray();
-        HashMap<Integer, Character> hash = new HashMap<>();
-
-        for(int i = 0; i < sequence.length; i++) {
-            hash.put(i, sequence[i]);
+        if(s.length() > t.length()) {
+            return false;
         }
-        for(int i = 0; i < sub.length; i++) {
-            if(!hash.containsValue(sub[i])) {
-                return false;
+        int it1 =0;
+        int it2=0;
+        char[] t1 = t.toCharArray();
+        char[] s1 = s.toCharArray();
+
+        while(it1 < s1.length && it2 < t1.length) {
+            if(s1[it1] == t1[it2]) {
+                it1+=1;
+                it2+=1;
+            } else {
+                it2+=1;
             }
-            
-            int foundPosition = -1;
-            for(Map.Entry<Integer, Character> entry : hash.entrySet()) {
-                if(entry.getValue().equals(sub[i]) && entry.getKey() >= count) {
-                    foundPosition = entry.getKey();
-                    break;
-                }
-            }
-            
-            if(foundPosition == -1) {
-                return false;
-            }
-            
-            count = foundPosition + 1;
         }
 
-        return true;
+        return it1 == s1.length;
+        
     }
 }
